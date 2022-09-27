@@ -32,9 +32,8 @@ def update(id):
     if request.method=='POST':
         username = request.form.get('username')
         password = request.form.get('password')  
-        conn.execute("UPDATE user set username=?,usermail =? WHERE ID=?",[username, password,id])
+        conn.execute("UPDATE user set username=?, password =? WHERE ID=?",[username, password,id])
         conn.commit()
-        print('dogru')
     return render_template('update.html',x=id)
 
 
