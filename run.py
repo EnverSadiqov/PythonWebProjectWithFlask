@@ -36,6 +36,27 @@ def update(id):
         conn.commit()
     return render_template('update.html',x=id)
 
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method=='POST':
+        conn = sqlite3.connect('project.db')
+        username = request.form.get('u_name')
+        passward = request.form.get('u_pass')
+        u=conn.execute("select username from login where id=1")
+        u=u.fetchall()
+        p=conn.execute("select passward from login where id=1")
+        p=p.fetchall()
+        if username in u[0] and passward in p[0]:
+            query = f"update login set is_active=1 where id=1"
+            conn.execute(query)
+            conn.commit()
+            return redirect('/message')
+        else:
+            flash('Istifadəçi Adı və Şifrə Dail Edilməyib ')
+            return render_template("login.html")
+    return render_template('login.html')
+    
+
 
 if __name__=='__main__':
     app.run(port=5000,debug=True)
