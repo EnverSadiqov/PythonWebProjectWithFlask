@@ -29,6 +29,8 @@ def delete(id):
     db.session.commit()
     return redirect ('/messages')
 
+
+
 @app.route('/update/<id>',methods=['GET','POST'])
 def update(id):
     from models import Messages, db
@@ -36,8 +38,10 @@ def update(id):
         name=request.form['u_name']
         email=request.form['u_email']
         message=request.form['u_message']
-        msj=Messages(name=name,email=email,message=message)
-        mesaj=Messages.query.get({id},)
+        mesaj=Messages.query.get(id)
+        mesaj.name=name
+        mesaj.email=email
+        mesaj.mesage=message
         db.session.update(msj)
         db.session.commit()
         return redirect ('/contact')
