@@ -1,5 +1,7 @@
 from flask import redirect, request,url_for, render_template
 from ran import app 
+import datetime
+
 
 
 @app.route('/contact', methods=['GET', 'POST'] )
@@ -9,7 +11,7 @@ def contact():
         name=request.form['u_name']
         email=request.form['u_email']
         message=request.form['u_message']
-        msj=Messages(name=name,email=email,message=message)
+        msj=Messages(name=name,email=email,message=message, m_date=str(datatime.datatime.now()))
         db.session.add(msj)
         db.session.commit()
         return redirect('/messages')     
@@ -34,15 +36,11 @@ def delete(id):
 @app.route('/update/<id>',methods=['GET','POST'])
 def update(id):
     from models import Messages, db
-    if request.method==['GET','POST']:
-        name=request.form['u_name']
-        email=request.form['u_email']
-        message=request.form['u_message']
-        mesaj=Messages.query.get(id)
-        mesaj.name=name
-        mesaj.email=email
-        mesaj.mesage=message
-        db.session.update(msj)
+    message=Messages.query.get(id)
+    if request.method=="POST":
+        message.name=request.form['u_name']
+        message.email=request.form['u_email']
+        message.message=request.form['u_message']
         db.session.commit()
-        return redirect ('/contact')
-    return render_template('update.html',x=id)
+        return redirect ('/messages')
+    return render_template('update.html',message=message)
