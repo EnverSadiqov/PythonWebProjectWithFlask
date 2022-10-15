@@ -19,9 +19,14 @@ def contact():
 
 @app.route('/messages', methods=['GET', 'POST'])
 def messages():
-    from models import Messages, db
-    messages=Messages.query.all()
-    return render_template('/messages.html', messages=messages)
+    from models import Messages,User,db
+    user=User.query.get(1)
+    if user.is_logged_in==True:
+        message= Messages.query.all()
+        return render_template('messages.html',message=message)
+    else:
+        return redirect('/login')
+
 #delete fuksiyasi elave olundu
 @app.route('/delete/<id>',methods=['GET','POST'] )
 def delete(id):
@@ -44,3 +49,24 @@ def update(id):
         db.session.commit()
         return redirect ('/messages')
     return render_template('update.html',message=message)
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    from models import Messages,User,db
+    user=User.query.get(1)
+    if request.method=="POST":
+        if request.form['u_email']==user.email and request.form['u_password']==user.password:
+            user.is_logged_in=True
+            db.session.commit()
+            return redirect ('/messages')
+        else:
+            return redirect ('/login')
+    return render_template('login.html')
+
+@app.route('/logout', methods=['GET', 'POST'])
+def logout():
+    from models import Messages,User,db
+    user=User.query.get(1)
+    user.is_logged_in=False
+    db.session.commit()
+    return redirect('/login')

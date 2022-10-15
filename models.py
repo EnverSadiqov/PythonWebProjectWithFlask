@@ -1,5 +1,5 @@
 from ran import db,app
-import datetime
+
 
 class Messages(db.Model):
     id = db.Column(db.Integer,primary_key=True,)
@@ -11,10 +11,11 @@ class Messages(db.Model):
 
 class User(db.Model):
     id = db.Column(db.Integer,primary_key=True,)
-    name = db.Column(db.String(20),nullable=False)
-    username = db.Column(db.String(20),nullable=False)
-    password = db.Column(db.String(30),nullable=False)
-    info = db.Column(db.String(255),nullable=False)
+    name = db.Column(db.String(20))
+    email = db.Column(db.String(100))
+    password = db.Column(db.String(20))
+    is_logged_in = db.Column(db.Boolean)
+    
     
     
     
