@@ -1,21 +1,10 @@
-from ran import db,app
+from start import db
 
-
-class Messages(db.Model):
-    id = db.Column(db.Integer,primary_key=True,)
-    name = db.Column(db.String(20),nullable=False)
-    email = db.Column(db.String(20),nullable=False)
-    message =db.Column(db.String(200),nullable=False)
-    m_data= db.Column(db.String(200))
-
-
-class User(db.Model):
-    id = db.Column(db.Integer,primary_key=True,)
-    name = db.Column(db.String(20))
-    email = db.Column(db.String(100))
-    password = db.Column(db.String(20))
-    is_logged_in = db.Column(db.Boolean)
-    
-    
-    
+#generate class with prodcutName and prodcutPrice
+class Product(db.Model):
+    id=db.Column(db.Integer,primery_key=True ,autoincrement= True)
+    prodcutName=db.Column(db.String(100),nullable=True )
+    prodcutPrice=db.Column(db.Integer,nullable=True )
+    is_active=db.Column(db.Boolean,default=True)
+    add_date=db.Column(db.DataTime)
     
