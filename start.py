@@ -7,8 +7,8 @@ main=Flask(__name__)
 #import Blueprint
 from app import app_bp
 from admin import admin_bp
-from app.route import *
-from admin.route import *
+from app.routes import *
+from admin.routes import *
 
 #register Blueprint
 
