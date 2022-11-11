@@ -1,0 +1,52 @@
+{% extends 'admin/layout.html' %}
+{% block content%}
+
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title">add new product</h5>
+      <p class="card-text">
+          <form action="/admin/products.html " method="POST">
+            {{productsForm.name(class_-'form-control my-3',placeholder="Product Name")}}
+            {{productsForm.price(class_-'form-control my-3',placeholder="Product Price")}}
+            {{productsForm.amount(class_-'form-control my-3',placeholder="Product Amount")}}
+            {{productsForm.info(class_-'form-control my-3',placeholder="Product Info")}}
+            {{productsForm.submit(class_-'form-control my-3',placeholder="Add Product ")}}
+          </form>
+    </p>
+    </div>
+</div>
+
+
+<div class="card"> 
+    <div class="card-body">
+      <h5 class="card-title">product list </h5>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Product ID </th>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+        <tr>
+          <th scope="row">{{product.id}}</th>
+          <td>{{product.name}}</td>
+          <td>{{product.price}}</td>
+          <td>
+            <a href="/admin/products/edit/{{product.id}}" class="btn btn-primary"> Edit </a>
+            <a href="/admin/products/delete/{{product.id}}" class="btn btn-primary"> Delete </a>
+            <a href="/admin/products/detail/{{product.id}}" class="btn btn-primary"> Sho </a>
+
+          </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
+
+
+{% endblock %}
