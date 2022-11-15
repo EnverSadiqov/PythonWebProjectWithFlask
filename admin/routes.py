@@ -8,7 +8,7 @@ def admin_index():
 
 
 
-@admin_bp.route('/products',methods=['GET','POST'] )
+@admin_bp.route('/products', methods=['GET','POST'] )
 def admin_products():
     from start import db
     from models import Product
